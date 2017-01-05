@@ -18,7 +18,7 @@ foreach ($events as $event) {
     if ($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage) {
         $reply_token = $event->getReplyToken();
         $text = $event->getText();
-        if(stripos($text, "show user id"){
+        if(stripos($text, "show user id") > -1){
             $bot->replyText($reply_token, $event->getUserId());
         } else {
             $bot->replyText($reply_token, $text);
