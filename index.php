@@ -18,7 +18,7 @@ foreach ($events as $event) {
     
     if ($event instanceof \LINE\LINEBot\Event\FollowEvent) {
         $file = fopen("tempfile.txt" , 'a');
-        fwrite($file, $event->getUserId());
+        fwrite($file, $event->getUserId() . "\n");
         fclose($file);
     }
 }
