@@ -17,7 +17,7 @@ $events = $bot->parseEventRequest($body, $signature);
 foreach ($events as $event) {
     $file = fopen("tempfile.txt" , 'a');
     $string = implode(",", get_object_vars($event));
-    fwrite($file, $string);
+    fwrite($file, "Test" . $string);
     fclose($file);
 }
 
