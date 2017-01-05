@@ -19,9 +19,9 @@ foreach ($events as $event) {
         $reply_token = $event->getReplyToken();
         $text = $event->getText();
         if(stripos($text, "show user id") > -1){
-            $bot->replyText($reply_token, $event->getUserId());
+            // $bot->replyText($reply_token, $event->getUserId());
         } else {
-            $bot->replyText($reply_token, $text);
+            $bot->replyText($reply_token, $event->getUserId());
         }
     }
 }
