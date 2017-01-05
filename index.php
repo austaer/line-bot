@@ -4,22 +4,30 @@ define("LINE_MESSAGING_API_CHANNEL_TOKEN", 'yQRP6f8hTCddfvhemUfCGoiUtzg5c/hDzKhR
 
 require_once(__DIR__ . "/lib/vendor/autoload.php");
 
-$bot = new \LINE\LINEBot(
-    new \LINE\LINEBot\HTTPClient\CurlHTTPClient(LINE_MESSAGING_API_CHANNEL_TOKEN),
-    ['channelSecret' => LINE_MESSAGING_API_CHANNEL_SECRET]
-);
+// $bot = new \LINE\LINEBot(
+    // new \LINE\LINEBot\HTTPClient\CurlHTTPClient(LINE_MESSAGING_API_CHANNEL_TOKEN),
+    // ['channelSecret' => LINE_MESSAGING_API_CHANNEL_SECRET]
+// );
 
-$signature = $_SERVER["HTTP_".\LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
-$body = file_get_contents("php://input");
+// $signature = $_SERVER["HTTP_".\LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
+// $body = file_get_contents("php://input");
 
-$events = $bot->parseEventRequest($body, $signature);
+// $events = $bot->parseEventRequest($body, $signature);
 
-foreach ($events as $event) {
-    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage) {
-        $reply_token = $event->getReplyToken();
-        $text = $event->getText();
-        $bot->replyText($reply_token, $text);
-    }
-}
+// foreach ($events as $event) {
+    // if ($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage) {
+        // $reply_token = $event->getReplyToken();
+        // $text = print_r($event);
+        // $bot->replyText($reply_token, $text);
+    // }
+// }
+
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(LINE_MESSAGING_API_CHANNEL_TOKEN);
+$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => LINE_MESSAGING_API_CHANNEL_SECRET]);
+
+$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+$response = $bot->pushMessage('Austaer', $textMessageBuilder);
+
+echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 echo "OK";  
