@@ -15,7 +15,7 @@ $body = file_get_contents("php://input");
 $events = $bot->parseEventRequest($body, $signature);
 
 foreach ($events as $event) {
-    $file = fopen("./tmp/tempfile" , 'a');
+    $file = fopen("tempfile.txt" , 'a');
     $string = implode(",", get_object_vars($event));
     fwrite($file, $string);
     fclose($file);
