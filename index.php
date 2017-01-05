@@ -15,15 +15,10 @@ $body = file_get_contents("php://input");
 $events = $bot->parseEventRequest($body, $signature);
 
 foreach ($events as $event) {
-    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage) {
-        $reply_token = $event->getReplyToken();
-        $text = $event->getText();
-        if(stripos($text, "show user id") > -1){
-            // $bot->replyText($reply_token, $event->getUserId());
-        } else {
-            $bot->replyText($reply_token, $event->getUserId());
-        }
-    }
+    $file = fopen("./tmp/tempfile" , 'a');
+    $string = implode(",", get_object_vars($event));
+    fwrite($file, $string);
+    fclose($file);
 }
 
 echo "OK";  
