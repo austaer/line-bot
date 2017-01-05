@@ -19,7 +19,7 @@ foreach ($events as $event) {
         $reply_token = $event->getReplyToken();
         $text = $event->getText();
         if(stripos($text, "show user id"){
-            $bot->replyText($reply_token, $event->getUserId);
+            $bot->replyText($reply_token, $event->getUserId());
         } else {
             $bot->replyText($reply_token, $text);
         }
