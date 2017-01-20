@@ -12,6 +12,11 @@ $bot = new \LINE\LINEBot(
 $signature = $_SERVER["HTTP_".\LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 $body = file_get_contents("php://input");
 
+
+$file = fopen("tempfile.txt" , 'a');
+fwrite($file, implode("\t" , $body ). "\n");
+fclose($file);
+
 $events = $bot->parseEventRequest($body, $signature);
 
 $file = fopen("tempfile.txt" , 'a');
