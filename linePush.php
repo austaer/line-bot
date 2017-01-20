@@ -4,10 +4,11 @@ define("LINE_MESSAGING_API_CHANNEL_TOKEN", 'yQRP6f8hTCddfvhemUfCGoiUtzg5c/hDzKhR
 
 require_once(__DIR__ . "/lib/vendor/autoload.php");
 
+
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(LINE_MESSAGING_API_CHANNEL_TOKEN);
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => LINE_MESSAGING_API_CHANNEL_SECRET]);
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($_GET['msg']);
-$response = $bot->pushMessage($_GET['uid'], $textMessageBuilder);
+$response = $bot->pushMessage(json_encode($_GET['uid']), $textMessageBuilder);
 
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
