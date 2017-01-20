@@ -15,9 +15,6 @@ $body = file_get_contents("php://input");
 $events = $bot->parseEventRequest($body, $signature);
 
 foreach ($events as $event) {
-    $file = fopen("tempfile.txt" , 'a');
-    fwrite($file, "test\n");
-    fclose($file);
     if ($event instanceof \LINE\LINEBot\Event\FollowEvent) {
         $file = fopen("tempfile.txt" , 'a');
         fwrite($file, $event->getUserId() . "\n");
