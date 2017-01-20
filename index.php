@@ -19,7 +19,7 @@ foreach ($events as $event) {
         $file = fopen("tempfile.txt" , 'a');
         fwrite($file, $event->getUserId() . "\n");
         fclose($file);
-        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($event->getText());
+        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder("安安");
         $response = $bot->pushMessage($event->getUserId(), $textMessageBuilder);
     }
 }
