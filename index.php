@@ -19,7 +19,13 @@ foreach ($events as $event) {
         $file = fopen("tempfile.txt" , 'a');
         fwrite($file, $event->getUserId() . "\n");
         fclose($file);
+        $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($event->getText());
+        $response = $bot->pushMessage($event->getUserId(), $textMessageBuilder);
     }
 }
+
+
+
+echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
 
 echo "OK";
