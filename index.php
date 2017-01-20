@@ -4,10 +4,25 @@ define("LINE_MESSAGING_API_CHANNEL_TOKEN", 'yQRP6f8hTCddfvhemUfCGoiUtzg5c/hDzKhR
 
 require_once(__DIR__ . "/lib/vendor/autoload.php");
 
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(LINE_MESSAGING_API_CHANNEL_TOKEN);
-$bot = new \LINE\LINEBot($httpClient, ['channelSecret' => LINE_MESSAGING_API_CHANNEL_SECRET]);
+$bot = new \LINE\LINEBot(
+    new \LINE\LINEBot\HTTPClient\CurlHTTPClient(LINE_MESSAGING_API_CHANNEL_TOKEN),
+    ['channelSecret' => LINE_MESSAGING_API_CHANNEL_SECRET]
+);
 
-$textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($_GET['msg']);
-$response = $bot->pushMessage($_GET['uid'], $textMessageBuilder);
+$signature = $_SERVER["HTTP_".\LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
+$body = file_get_contents("php://input");
 
-echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
+$events = $bot->parseEventRequest($body, $signature);
+
+foreach ($events as $event) {
+    $file = fopen("tempfile.txt" , 'a');
+    fwrite($file, "test\n");
+    fclose($file);
+    if ($event instanceof \LINE\LINEBot\Event\FollowEvent) {
+        $file = fopen("tempfile.txt" , 'a');
+        fwrite($file, $event->getUserId() . "\n");
+        fclose($file);
+    }
+}
+
+echo "OK";
