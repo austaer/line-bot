@@ -9,6 +9,6 @@ $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(LINE_MESSAGING_API_CHA
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => LINE_MESSAGING_API_CHANNEL_SECRET]);
 
 $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($_GET['msg']);
-$response = $bot->pushMessage(json_encode($_GET['uid']), $textMessageBuilder);
+$response = $bot->pushMessage($_GET['uid'], $textMessageBuilder);
 
 echo $response->getHTTPStatus() . ' ' . $response->getRawBody();
