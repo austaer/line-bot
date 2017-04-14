@@ -16,9 +16,32 @@ $events = $bot->parseEventRequest($body, $signature);
 
 foreach ($events as $event) {
     if ($event instanceof \LINE\LINEBot\Event\FollowEvent) {
-        $file = fopen("tempfile.txt" , 'a');
-        fwrite($file, $event->getUserId() . "\n");
-        fclose($file);
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "http://61.63.6.146/cms/lineuser/Ueeeaeaa9ab46d711b69d251f57561622",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => "",
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 30,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "GET",
+          CURLOPT_HTTPHEADER => array(
+            "cache-control: no-cache",
+            "postman-token: 111109d8-6f6d-d910-6b92-f4bd959201a6"
+          ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        curl_close($curl);
+
+        if ($err) {
+          echo "cURL Error #:" . $err;
+        } else {
+          echo $response;
+        }
     }
 }
 
