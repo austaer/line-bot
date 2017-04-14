@@ -19,7 +19,7 @@ foreach ($events as $event) {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-          CURLOPT_URL => "http://61.63.6.146/cms/lineuser/Ueeeaeaa9ab46d711b69d251f57561622",
+          CURLOPT_URL => "http://61.63.6.146/cms/lineuser/" . $event->getUserId(),
           CURLOPT_RETURNTRANSFER => true,
           CURLOPT_ENCODING => "",
           CURLOPT_MAXREDIRS => 10,
