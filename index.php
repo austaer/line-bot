@@ -43,6 +43,12 @@ foreach ($events as $event) {
           echo $response;
         }
     }
+    
+    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage) {
+        $reply_token = $event->getReplyToken();
+        $text = $event->getText();
+        $bot->replyText($reply_token, $text);
+    }
 }
 
 echo "OK";
